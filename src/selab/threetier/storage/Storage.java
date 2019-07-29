@@ -9,4 +9,5 @@ public class Storage {
 
     public static Storage getInstance() { return instance; }
     public EntityStorage<Task> getTasks() { return tasks; }
+    public EntityStorage<Task> getPublishedTasks() { return tasks; }
 }

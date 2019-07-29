@@ -11,7 +11,10 @@ public class Task extends Entity {
     private String title;
     private Date start;
     private Date end;
+    private Boolean published;
 
+    public void setPublished () { published = true; }
+    public void setdeleted () { published = true; }
     public String getTitle() { return title; }
     public void setTitle(String value) { title = value; }
 
