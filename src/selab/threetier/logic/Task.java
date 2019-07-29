@@ -33,7 +33,23 @@ public class Task extends Entity {
     public Date getEnd() {
         return end;
     }
-
+    public boolean checkOverlap() {
+        if(this.start == null || this.end == null){
+            return false;
+        }
+        ArrayList<Task> tasks = Task.getAll();
+        for(int i = 0;i<tasks.size();i++){
+            Task task = tasks.get(i);
+            if(!task.getPublished()){
+                continue;
+            }
+            if(start.compareTo(task.getEnd()) > 0 || end.compareTo(task.getStart()) < 0){
+                continue;
+            }
+            return true;
+        }
+        return false;
+    }
 
     public void setEnd(Date value) { end = value; }
     public String getEndTime() {
@@ -41,7 +57,9 @@ public class Task extends Entity {
     }
 
     public void save() {
-
+        if(checkOverlap()){
+            return;
+        }
         System.out.println("SAVING");
         Storage.getInstance().getTasks().addOrUpdate(this);
     }
