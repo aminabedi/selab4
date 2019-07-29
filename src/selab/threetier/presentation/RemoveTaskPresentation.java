@@ -1,5 +1,6 @@
 package selab.threetier.presentation;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import selab.threetier.logic.Task;
 
@@ -9,9 +10,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import selab.threetier.logic.Task;
 
 public class RemoveTaskPresentation extends JSONPresentation {
 
@@ -24,7 +27,19 @@ public class RemoveTaskPresentation extends JSONPresentation {
 
         int id = request.getInt("id");
 
-        // TODO: Add codes here to delete a task with the id
-        return null;
+        //
+        Task.deleteTask(id);
+        System.out.println("DELETED SUCCESSFULLY!");
+        JSONObject result = new JSONObject();
+        ArrayList<Task> tasks = Task.getAll();
+        ArrayList<Task> publishedTasks = new ArrayList<Task>();
+        for(int i=0;i<tasks.size();i++) {
+            Task t = tasks.get(i);
+            if(t.getPublished()) {
+                publishedTasks.add(tasks.get(i));
+            }
+        }
+        result.put("tasks", new JSONArray(publishedTasks));
+        return result;
     }
 }

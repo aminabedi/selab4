@@ -20,6 +20,8 @@ public class EntityStorage<T extends Entity> {
             list.replace(id, item);
         else
             list.put(id, item);
+        System.out.println("UPDATED!");
+        System.out.println(id);
         return id;
     }
 
