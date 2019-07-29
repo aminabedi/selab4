@@ -34,8 +34,11 @@ public class Task extends Entity {
         return end;
     }
     public boolean checkOverlap() {
-        if(this.start == null || this.end == null){
+        if(start == null || end == null){
             return false;
+        }
+        if(start.compareTo(end) > 0){
+            return true;
         }
         ArrayList<Task> tasks = Task.getAll();
         for(int i = 0;i<tasks.size();i++){
