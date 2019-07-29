@@ -14,14 +14,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import selab.threetier.logic.Task;
 
-class CustomComparator2 implements Comparator<Task> {
-    @Override
-    public int compare(Task o1, Task o2) {
-        return o1.getStart().compareTo(o2.getStart());
-    }
-}
-
-
 
 public class RemoveTaskPresentation extends JSONPresentation {
 
@@ -39,15 +31,7 @@ public class RemoveTaskPresentation extends JSONPresentation {
         System.out.println("DELETED SUCCESSFULLY!");
         JSONObject result = new JSONObject();
         ArrayList<Task> tasks = Task.getAll();
-        ArrayList<Task> publishedTasks = new ArrayList<Task>();
-        for(int i=0;i<tasks.size();i++) {
-            Task t = tasks.get(i);
-            if(t.getPublished()) {
-                publishedTasks.add(tasks.get(i));
-            }
-        }
-        Collections.sort(publishedTasks,new CustomComparator());
-        result.put("tasks", new JSONArray(publishedTasks));
+        result.put("tasks", new JSONArray(tasks));
         return result;
     }
 }
