@@ -10,11 +10,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import selab.threetier.logic.Task;
+
+class CustomComparator2 implements Comparator<Task> {
+    @Override
+    public int compare(Task o1, Task o2) {
+        return o1.getStart().compareTo(o2.getStart());
+    }
+}
+
+
 
 public class RemoveTaskPresentation extends JSONPresentation {
 
@@ -39,6 +46,7 @@ public class RemoveTaskPresentation extends JSONPresentation {
                 publishedTasks.add(tasks.get(i));
             }
         }
+        Collections.sort(publishedTasks,new CustomComparator());
         result.put("tasks", new JSONArray(publishedTasks));
         return result;
     }
